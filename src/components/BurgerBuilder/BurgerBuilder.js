@@ -102,14 +102,16 @@ class BurgerBuilder extends Component {
                 </div >
                 <Modal isOpen={this.state.modalOpen}>
                     <ModalHeader style={{ backgroundColor: "#00AFDB", color: 'white' }} >
-                        Your Order Summary
+                        <h4>
+                            Order Summary
+                        </h4>
                     </ModalHeader>
                     <ModalBody>
                         <h5>Total Price: {this.props.totalPrice.toFixed(0)} BDT</h5>
                         <Summary ingredients={this.props.ingredients} />
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="success" onClick={this.handleCheckout}>Continue to Checkout</Button>
+                        <Button color="success" onClick={this.handleCheckout}>Checkout</Button>
                         <Button color="danger" onClick={this.toggleModal}>Cancel</Button>
                     </ModalFooter>
                 </Modal>

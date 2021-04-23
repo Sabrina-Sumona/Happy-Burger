@@ -56,6 +56,21 @@ export const reducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 purchasable: sum > 0,
             }
+        case actionTypes.RESET_INGREDIENTS:
+            return {
+                ...state,
+                ingredients: [
+                    { type: 'salad', amount: 0 },
+                    { type: 'cheese', amount: 0 },
+                    { type: 'egg', amount: 0 },
+                    { type: 'beef', amount: 0 },
+                    { type: 'chicken', amount: 0 },
+                    { type: 'ketchup', amount: 0 },
+                    { type: 'mayonnaise', amount: 0 },
+                ],
+                totalPrice: 80,
+                purchasable: false,
+            }
         default:
             return state;
     }
