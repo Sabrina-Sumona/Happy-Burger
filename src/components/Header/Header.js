@@ -1,7 +1,6 @@
 import React from 'react';
 import { Navbar, NavbarBrand, Nav, NavItem } from 'reactstrap';
-import Logo from '../../assets/logo.png';
-// import Logo from '../../assets/images/logo.png';
+import Logo from '../../assets/images/logo.png';
 import './Header.css';
 import { NavLink } from 'react-router-dom';
 
@@ -9,11 +8,11 @@ const Header = () => {
     return (
         <div className="Navigation">
             <Navbar style={{
-                backgroundColor: "#D70F64",
-                height: "70px",
+                backgroundColor: "#00AFDB",
+                height: "70px"
             }}>
                 <NavbarBrand href="/" className="mr-auto ml-md-5 pt-3 Brand">
-                    <img src={Logo} alt="Logo" width="100px" />
+                    <img src={Logo} alt="Logo" width="165px" />
                 </NavbarBrand>
                 <Nav className="mr-md-5">
                     <NavItem>

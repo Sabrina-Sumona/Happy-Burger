@@ -27,7 +27,7 @@ const Controls = props => {
                 textAlign: "center"
             }}>
                 <CardHeader style={{
-                    backgroundColor: "#D70F64",
+                    backgroundColor: "#00AFDB",
                     color: "white"
                 }}><h4>Ingredients</h4></CardHeader>
                 <CardBody>
