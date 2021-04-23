@@ -2,29 +2,49 @@ import React from 'react';
 import './Ingredient.css';
 import BreadTop from '../../../assets/images/top.png';
 import BreadBottom from '../../../assets/images/bottom.png';
-import Meat from '../../../assets/images/meat.png';
+import Beef from '../../../assets/images/beef.png';
 import Salad from '../../../assets/images/salad.png';
 import Cheese from '../../../assets/images/cheese.png';
+import Egg from '../../../assets/images/egg.png';
+import Chicken from '../../../assets/images/chicken.png';
+import Ketchup from '../../../assets/images/ketchup.png';
+import Mayonnaise from '../../../assets/images/mayonnaise.png';
+
 
 
 const Ingredient = props => {
     let ingredient = null;
 
     switch (props.type) {
-        case 'bread-bottom':
-            ingredient = <div><img src={BreadBottom} alt="Bottom Bread" /></div>;
-            break;
         case 'bread-top':
             ingredient = <div><img src={BreadTop} alt="Top Bread" /></div>;
-            break;
-        case 'meat':
-            ingredient = <div><img src={Meat} alt="Meat" /></div>;
             break;
         case 'salad':
             ingredient = <div><img src={Salad} alt="Salad" /></div>;
             break;
         case 'cheese':
             ingredient = <div><img src={Cheese} alt="Cheese" /></div>;
+            break;
+        case 'beef':
+            ingredient = <div><img src={Beef} alt="Beef" /></div>;
+            break;
+        case 'egg':
+            ingredient = <div><img src={Egg} alt="Egg" /></div>;
+            break;
+        case 'beef':
+            ingredient = <div><img src={Beef} alt="Beef" /></div>;
+            break;
+        case 'chicken':
+            ingredient = <div><img src={Chicken} alt="Chicken" /></div>;
+            break;
+        case 'ketchup':
+            ingredient = <div><img src={Ketchup} alt="Ketchup" /></div>;
+            break;
+        case 'mayonnaise':
+            ingredient = <div><img src={Mayonnaise} alt="Mayonnaise" /></div>;
+            break;
+        case 'bread-bottom':
+            ingredient = <div><img src={BreadBottom} alt="Bottom Bread" /></div>;
             break;
         default:
             ingredient = null;
