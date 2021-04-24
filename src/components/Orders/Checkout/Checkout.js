@@ -4,6 +4,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import Spinner from '../../Spinner/Spinner';
 import { resetIngredients } from '../../../redux/actionCreators';
+import { Formik } from 'formik';
 
 const mapStateToProps = state => {
     return {
@@ -21,11 +22,11 @@ const mapDispatchToProps = dispatch => {
 
 class Checkout extends Component {
     state = {
-        values: {
-            deliveryAddress: "",
-            phone: "",
-            paymentType: "Cash On Delivery",
-        },
+        // values: {
+        //     deliveryAddress: "",
+        //     phone: "",
+        //     paymentType: "Cash On Delivery",
+        // },
         isLoading: false,
         isModalOpen: false,
         modalMsg: "",
@@ -35,23 +36,32 @@ class Checkout extends Component {
         this.props.history.goBack("/");
     }
 
-    inputChangerHandler = (e) => {
-        this.setState({
-            values: {
-                ...this.state.values,
-                [e.target.name]: e.target.value,
-            }
-        })
-    }
+    // inputChangerHandler = (e) => {
+    //     this.setState({
+    //         values: {
+    //             ...this.state.values,
+    //             [e.target.name]: e.target.value,
+    //         }
+    //     })
+    // }
 
-    submitHandler = () => {
+    // submitHandler = () => {
+    //     this.setState({ isLoading: true });
+    //     const order = {
+    //         ingredients: this.props.ingredients,
+    //         customer: this.state.values,
+    //         price: this.props.totalPrice,
+    //         orderTime: new Date(),
+    //     }
+    submitHandler = (values) => {
         this.setState({ isLoading: true });
         const order = {
             ingredients: this.props.ingredients,
-            customer: this.state.values,
+            customer: values,
             price: this.props.totalPrice,
             orderTime: new Date(),
         }
+
         // we must write .json after the key while using firebase
         axios.post("https://happy-burger-d182b-default-rtdb.firebaseio.com/orders.json", order)
             .then(response => {
@@ -84,18 +94,39 @@ class Checkout extends Component {
 
     render() {
         let form =
-            (
-                <div>
-                    <h4 style={{
-                        backgroundColor: "#00AFDB",
-                        color: "white",
-                        border: "1px solid grey",
-                        margin: "0px",
-                        borderTopLeftRadius: "5px",
-                        borderTopRightRadius: "5px",
-                        padding: "20px",
-                    }}>Payment: {this.props.totalPrice} BDT</h4>
-                    <form style={{
+            (<div>
+                <h4 style={{
+                    backgroundColor: "#00AFDB",
+                    color: "white",
+                    border: "1px solid grey",
+                    margin: "0px",
+                    borderTopLeftRadius: "5px",
+                    borderTopRightRadius: "5px",
+                    padding: "20px",
+                }}>Payment: {this.props.totalPrice} BDT</h4>
+                <Formik
+                    initialValues={{
+                        deliveryAddress: "",
+                        phone: "",
+                        paymentType: "Cash On Delivery",
+                    }}
+                    validate={values => {
+                        const errors = {};
+                        return errors;
+                    }}
+                    onSubmit={(values) => {
+                        this.submitHandler(values);
+                    }}
+                >
+                    {({
+                        values,
+                        errors,
+                        touched,
+                        handleChange,
+                        handleBlur,
+                        handleSubmit,
+                        /* and other goodies */
+                    }) => (<form style={{
                         border: "1px solid grey",
                         // boxShadow: "1px 1px #888888",
                         borderRadius: "5px",
@@ -103,41 +134,67 @@ class Checkout extends Component {
                         paddingBottom: "50px",
                         borderTopLeftRadius: "0px",
                         borderTopRightRadius: "0px"
-                    }}>
+                    }} onSubmit={handleSubmit}>
                         <textarea
                             name="deliveryAddress"
-                            value={this.state.values.deliveryAddress}
-                            className="form-control" placeholder="Your Address"
-                            onChange={(e) => this.inputChangerHandler(e)}
+                            id="deliveryAddress"
+                            // value={this.state.values.deliveryAddress}
+                            value={values.deliveryAddress}
+                            className="form-control"
+                            placeholder="Your Address"
+                            // onChange={(e) => this.inputChangerHandler(e)}
+                            onBlur={handleBlur}
+                            onChange={handleChange}
                         />
+                        <span>
+                            <small>
+                                {errors.deliveryAddress && touched.deliveryAddress && errors.deliveryAddress}
+                            </small>
+                        </span>
                         <br />
                         <input
                             name="phone"
+                            id="phone"
                             className="form-control"
-                            value={this.state.values.phone}
+                            // value={this.state.values.phone}
+                            value={values.phone}
                             placeholder="Your Phone Number"
-                            onChange={(e) => this.inputChangerHandler(e)}
+                            // onChange={(e) => this.inputChangerHandler(e)}
+                            onBlur={handleBlur}
+                            onChange={handleChange}
                         />
                         <br />
                         <select
                             name="paymentType"
+                            id="paymentType"
                             className="form-control"
-                            value={this.state.values.paymentType}
-                            onChange={(e) => this.inputChangerHandler(e)
-                            }>
+                            // value={this.state.values.paymentType}
+                            value={values.paymentType}
+                            // onChange={(e) => this.inputChangerHandler(e)
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                        >
                             <option value="Cash On Delivery">Cash On Delivery</option>
                             <option value="Bkash">Bkash</option>
                         </select>
                         <br />
-                        <Button color="danger" className="ml-3 float-right" onClick={this.goBack}>
+                        <Button
+                            color="danger"
+                            className="ml-3 float-right"
+                            onClick={this.goBack}>
                             Cancel
-                    </Button>
-                        <Button color="success" className="mr-auto float-right" disabled={!this.props.purchasable} onClick={this.submitHandler}>
+                            </Button>
+                        <Button
+                            type="submit"
+                            color="success"
+                            className="mr-auto float-right"
+                            //  onClick={this.submitHandler}
+                            disabled={!this.props.purchasable}>
                             Place Order
-                    </Button>
-                    </form>
-                </div >
-            )
+                            </Button>
+                    </form>)}
+                </Formik>
+            </div >)
         return (
             <div>
                 {this.state.isLoading ? <Spinner /> : form}
