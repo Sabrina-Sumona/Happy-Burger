@@ -53,7 +53,7 @@ class Checkout extends Component {
             orderTime: new Date(),
         }
         // we must write .json after the key while using firebase
-        axios.post("https://happy-burger-d182b-default-rtdb.firebaseio.com/orders.jdson", order)
+        axios.post("https://happy-burger-d182b-default-rtdb.firebaseio.com/orders.json", order)
             .then(response => {
                 if (response.status === 200) {
                     this.setState({
