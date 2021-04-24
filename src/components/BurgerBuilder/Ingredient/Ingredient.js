@@ -25,9 +25,6 @@ const Ingredient = props => {
         case 'cheese':
             ingredient = <div><img src={Cheese} alt="Cheese" /></div>;
             break;
-        case 'beef':
-            ingredient = <div><img src={Beef} alt="Beef" /></div>;
-            break;
         case 'egg':
             ingredient = <div><img src={Egg} alt="Egg" /></div>;
             break;
