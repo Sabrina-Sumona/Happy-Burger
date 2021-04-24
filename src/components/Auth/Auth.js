@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 import { Formik } from 'formik';
 
 class Auth extends Component {
+    state = {
+        mode: "Sign Up"
+    }
+
+    switchModeHandler = () => {
+        this.setState({ mode: this.state.mode === "Sign Up" ? "Login" : "Sign Up" })
+    }
     render() {
         return (
             <div>
@@ -13,7 +20,7 @@ class Auth extends Component {
                     borderTopLeftRadius: "5px",
                     borderTopRightRadius: "5px",
                     padding: "20px",
-                }}>Sign Up</h4>
+                }}>{this.state.mode === "Sign Up" ? "Sign Up" : "Login"}</h4>
                 <Formik
                     initialValues={
                         {
@@ -44,10 +51,12 @@ class Auth extends Component {
                             errors.password = 'Password must contain 8 characters and at least 1 lowercase letter, 1 uppercase letter, 1 number & 1 special character!';
                         }
 
-                        if (!values.passwordConfirm) {
-                            errors.passwordConfirm = 'Required';
-                        } else if (values.password !== values.passwordConfirm) {
-                            errors.passwordConfirm = 'Password field does no match!';
+                        if (this.state.mode === "Sign Up") {
+                            if (!values.passwordConfirm) {
+                                errors.passwordConfirm = 'Required';
+                            } else if (values.password !== values.passwordConfirm) {
+                                errors.passwordConfirm = 'Password field does no match!';
+                            }
                         }
                         //console.log("Errors:", errors)
                         return errors;
@@ -64,6 +73,7 @@ class Auth extends Component {
                                 borderTopLeftRadius: "0px",
                                 borderTopRightRadius: "0px"
                             }}>
+                            <br />
                             <form onSubmit={handleSubmit}>
                                 <input
                                     name="email"
@@ -87,22 +97,25 @@ class Auth extends Component {
                                     <small>{errors.password}</small>
                                 </span>
                                 <br />
-                                <input
-                                    name="passwordConfirm"
-                                    placeholder="Confirm Password"
-                                    className="form-control"
-                                    value={values.passwordConfirm}
-                                    onChange={handleChange}
-                                />
-                                <span style={{ color: "red" }}>
-                                    <small>{errors.passwordConfirm}</small>
-                                </span>
-                                <br />
-                                <button type="submit" className="btn btn-success float-right">Submit</button>
+                                {this.state.mode === "Sign Up" ? <div>
+                                    <input
+                                        name="passwordConfirm"
+                                        placeholder="Confirm Password"
+                                        className="form-control"
+                                        value={values.passwordConfirm}
+                                        onChange={handleChange}
+                                    />
+                                    <span style={{ color: "red" }}>
+                                        <small>{errors.passwordConfirm}</small>
+                                    </span>
+                                    <br />
+                                </div> : null}
+                                <button className="btn btn-info float-right" onClick={this.switchModeHandler}>Switch to {this.state.mode === "Sign Up" ? "Login" : "Sign Up"}</button>
+                                <button type="submit" className="btn btn-success  mr-2 float-right">{this.state.mode === "Sign Up" ? "Sign Up" : "Login"}</button>
                             </form>
                         </div>)}
                 </Formik>
-            </div>
+            </div >
         )
     }
 }
