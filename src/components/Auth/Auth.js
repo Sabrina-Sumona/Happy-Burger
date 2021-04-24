@@ -13,7 +13,7 @@ class Auth extends Component {
                     borderTopLeftRadius: "5px",
                     borderTopRightRadius: "5px",
                     padding: "20px",
-                }}>LogIn</h4>
+                }}>Sign Up</h4>
                 <Formik
                     initialValues={
                         {
@@ -28,10 +28,34 @@ class Auth extends Component {
                             console.log(values);
                         }
                     }
+
+                    validate={(values) => {
+                        const errors = {};
+
+                        if (!values.email) {
+                            errors.email = 'Required';
+                        } else if (!/^([a-zA-Z0-9]\.?)+[^\.]@([a-zA-Z0-9]\.?)+[^\.]$/g.test(values.email)) {
+                            errors.email = 'Please enter a valid email address!';
+                        }
+
+                        if (!values.password) {
+                            errors.password = 'Required';
+                        } else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[_!@#\$%\^&\*])(?=.{8,})/g.test(values.password)) {
+                            errors.password = 'Password must contain 8 characters and at least 1 lowercase letter, 1 uppercase letter, 1 number & 1 special character!';
+                        }
+
+                        if (!values.passwordConfirm) {
+                            errors.passwordConfirm = 'Required';
+                        } else if (values.password !== values.passwordConfirm) {
+                            errors.passwordConfirm = 'Password field does no match!';
+                        }
+                        //console.log("Errors:", errors)
+                        return errors;
+                    }}
                 >
                     {/* formik gives us handleChange & handleSubmit   */}
-                    {({ values, handleChange, handleSubmit }) => (<div>
-                        <form onSubmit={handleSubmit}
+                    {({ values, handleChange, handleSubmit, errors }) => (
+                        <div
                             style={{
                                 border: "1px solid grey",
                                 borderRadius: "5px",
@@ -40,34 +64,43 @@ class Auth extends Component {
                                 borderTopLeftRadius: "0px",
                                 borderTopRightRadius: "0px"
                             }}>
-                            <input
-                                name="email"
-                                placeholder="Enter Your Email"
-                                className="form-control"
-                                value={values.email}
-                                onChange={handleChange}
-                            />
-                            <br />
-                            <input
-                                name="password"
-                                placeholder="Password"
-                                className="form-control"
-                                value={values.password}
-                                onChange={handleChange}
-                            />
-                            <br />
-                            <input
-                                name="passwordConfirm"
-                                placeholder="Confirm Password"
-                                className="form-control"
-                                value={values.passwordConfirm}
-                                onChange={handleChange}
-                            />
-                            <br />
-                            <button type="submit" className="btn btn-info float-right">Sign Up</button>
-                            <button type="submit" className="btn btn-success float-right mr-2">Log In</button>
-                        </form>
-                    </div>)}
+                            <form onSubmit={handleSubmit}>
+                                <input
+                                    name="email"
+                                    placeholder="Enter Your Email"
+                                    className="form-control"
+                                    value={values.email}
+                                    onChange={handleChange}
+                                />
+                                <span style={{ color: "red" }}>
+                                    <small> {errors.email} </small>
+                                </span>
+                                <br />
+                                <input
+                                    name="password"
+                                    placeholder="Password"
+                                    className="form-control"
+                                    value={values.password}
+                                    onChange={handleChange}
+                                />
+                                <span style={{ color: "red" }}>
+                                    <small>{errors.password}</small>
+                                </span>
+                                <br />
+                                <input
+                                    name="passwordConfirm"
+                                    placeholder="Confirm Password"
+                                    className="form-control"
+                                    value={values.passwordConfirm}
+                                    onChange={handleChange}
+                                />
+                                <span style={{ color: "red" }}>
+                                    <small>{errors.passwordConfirm}</small>
+                                </span>
+                                <br />
+                                <button type="submit" className="btn btn-success float-right">Submit</button>
+                            </form>
+                        </div>)}
                 </Formik>
             </div>
         )
