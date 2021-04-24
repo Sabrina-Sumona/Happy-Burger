@@ -7,10 +7,10 @@ const Order = props => {
                 border: "1px solid grey",
                 borderRadius: "5px",
                 padding: "5px",
-                marginRight: "10px",
+                marginRight: "5px",
                 backgroundColor: "#00AFDB",
                 color: 'white'
-            }} key={item.type}>{item.amount}x <span style={{ textTransform: "capitalize" }}>{item.type}</span></span>
+            }} key={item.type}>{item.amount} x <span style={{ textTransform: "capitalize" }}>{item.type}</span></span>
         )
     })
     return (
@@ -24,7 +24,9 @@ const Order = props => {
             <p>Order Number: {props.order.id}</p>
             <p>Delivery Address: {props.order.customer.deliveryAddress}</p>
             <hr />
-            {ingredientSummary}
+            <div className="row" style={{ margin: "25px" }}>
+                {ingredientSummary}
+            </div>
             <hr />
             <p>Total: {props.order.price} BDT</p>
         </div>

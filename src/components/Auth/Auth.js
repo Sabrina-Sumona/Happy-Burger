@@ -119,8 +119,19 @@ class Auth extends Component {
                                     </span>
                                     <br />
                                 </div> : null}
-                                <button className="btn btn-info float-right" onClick={this.switchModeHandler}>Switch to {this.state.mode === "Sign Up" ? "Login" : "Sign Up"}</button>
-                                <button type="submit" className="btn btn-success  mr-2 float-right">{this.state.mode === "Sign Up" ? "Sign Up" : "Login"}</button>
+                                <button
+                                    style={{
+                                        backgroundColor: "#00AFDB",
+                                        color: "white"
+                                    }}
+                                    className="btn float-right"
+                                    onClick={this.switchModeHandler}
+                                >
+                                    Switch to {this.state.mode === "Sign Up" ? "Login" : "Sign Up"}
+                                </button>
+                                <button type="submit" className="btn btn-success mr-2 float-right">
+                                    {this.state.mode === "Sign Up" ? "Sign Up" : "Login"}
+                                </button>
                             </form>
                         </div>)}
                 </Formik>
