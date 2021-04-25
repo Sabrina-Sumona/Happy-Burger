@@ -16,7 +16,7 @@ const Header = props => {
     const mystyle = {
         border: "1px solid white",
         borderRadius: "5px",
-        padding: "2px",
+        padding: "1px",
         boxShadow: "2px 2px #888888",
     }
     if (props.token === null) {
@@ -48,10 +48,10 @@ const Header = props => {
                 className="col-12"
                 style={{
                     backgroundColor: "#00AFDB",
-                    height: "70px"
+                    height: "100px"
                 }}>
                 <NavbarBrand href="/" className="mr-auto ml-md-1 pt-3 Brand">
-                    <img src={Logo} alt="Logo" width="140px" />
+                    <img src={Logo} alt="Logo" width="120px" />
                 </NavbarBrand>
                 {links}
             </Navbar>
