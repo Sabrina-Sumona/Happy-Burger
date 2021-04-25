@@ -40,8 +40,11 @@ const orderLoadFailed = () => {
     }
 }
 
-export const fetchOrders = () => dispatch => {
-    axios.get("https://happy-burger-d182b-default-rtdb.firebaseio.com/orders.json")
+export const fetchOrders = (token, userId) => dispatch => {
+    // fetch data according to user id
+    const queryParams = '&orderBy="userId"&equalTo="' + userId + '"';
+    // must use '' when fetch data according to user id
+    axios.get('https://happy-burger-d182b-default-rtdb.firebaseio.com/orders.json?auth=' + token + queryParams)
         .then(response => {
             dispatch(loadOrders(response.data));
         })

@@ -11,6 +11,8 @@ const mapStateToProps = state => {
         ingredients: state.ingredients,
         totalPrice: state.totalPrice,
         purchasable: state.purchasable,
+        userId: state.userId,
+        token: state.token,
     }
 }
 
@@ -60,17 +62,17 @@ class Checkout extends Component {
             customer: values,
             price: this.props.totalPrice,
             orderTime: new Date(),
+            userId: this.props.userId,
         }
 
         // we must write .json after the key while using firebase
-        axios.post("https://happy-burger-d182b-default-rtdb.firebaseio.com/orders.json", order)
+        axios.post("https://happy-burger-d182b-default-rtdb.firebaseio.com/orders.json?auth=" + this.props.token, order)
             .then(response => {
                 if (response.status === 200) {
                     this.setState({
                         isLoading: false,
                         isModalOpen: true,
-                        modalMsg: "Your Order Is Placed Successfully!",
-                        modalSt: "Success"
+                        modalMsg: "Your Order Placed Successfully!",
                     })
                     this.props.resetIngredients();
                 } else {
@@ -78,7 +80,6 @@ class Checkout extends Component {
                         isLoading: false,
                         isModalOpen: true,
                         modalMsg: "Something Went Wrong! Please Order Again!",
-                        modalSt: "Failure"
                     })
                 }
             })
@@ -87,7 +88,6 @@ class Checkout extends Component {
                     isLoading: false,
                     isModalOpen: true,
                     modalMsg: "Something Went Wrong! Please Order Again!",
-                    modalSt: "Failure"
                 })
             })
     }

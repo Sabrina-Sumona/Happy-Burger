@@ -67,13 +67,13 @@ class Auth extends Component {
 
                             if (!values.email) {
                                 errors.email = 'Required';
-                            } else if (!/^([a-zA-Z0-9]\.?)+[^\.]@([a-zA-Z0-9]\.?)+[^\.]$/g.test(values.email)) {
+                            } else if (!/^([a-zA-Z0-9].?)+[^.]@([a-zA-Z0-9].?)+[^.]$/i.test(values.email)) {
                                 errors.email = 'Please enter a valid email address!';
                             }
 
                             if (!values.password) {
                                 errors.password = 'Required';
-                            } else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[_!@#\$%\^&\*])(?=.{8,})/g.test(values.password)) {
+                            } else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[_!@#$%^&*])(?=.{8,})/i.test(values.password)) {
                                 errors.password = 'Password must contain 8 characters and at least 1 lowercase letter, 1 uppercase letter, 1 number & 1 special character!';
                             }
 

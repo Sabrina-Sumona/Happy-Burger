@@ -9,18 +9,20 @@ const mapStateToProps = state => {
         orders: state.orders,
         orderLoading: state.orderLoading,
         orderErr: state.orderErr,
+        token: state.token,
+        userId: state.userId,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchOrders: () => dispatch(fetchOrders()),
+        fetchOrders: (token, userId) => dispatch(fetchOrders(token, userId)),
     }
 }
 
 class Orders extends Component {
     componentDidMount() {
-        this.props.fetchOrders();
+        this.props.fetchOrders(this.props.token, this.props.userId);
     }
     componentDidUpdate() {
         console.log(this.props);
@@ -39,7 +41,7 @@ class Orders extends Component {
         } else {
             if (this.props.orders.length === 0) {
                 orders =
-                    <p style={mystyle}>You have no Orders! Please order...</p>
+                    <p style={mystyle}>You have no Order! Please order...</p>
             } else {
                 orders = this.props.orders.map(order => {
                     return <Order order={order} key={order.id} />
