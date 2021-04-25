@@ -8,7 +8,7 @@ import Cheese from '../../../assets/images/cheese.png';
 import Egg from '../../../assets/images/egg.png';
 import Chicken from '../../../assets/images/chicken.png';
 import Ketchup from '../../../assets/images/ketchup.png';
-import Mayonnaise from '../../../assets/images/mayonnaise.png';
+import Mayo from '../../../assets/images/mayo.png';
 
 
 
@@ -37,8 +37,8 @@ const Ingredient = props => {
         case 'ketchup':
             ingredient = <div><img src={Ketchup} alt="Ketchup" /></div>;
             break;
-        case 'mayonnaise':
-            ingredient = <div><img src={Mayonnaise} alt="Mayonnaise" /></div>;
+        case 'mayo':
+            ingredient = <div><img src={Mayo} alt="Mayo" /></div>;
             break;
         case 'bread-bottom':
             ingredient = <div><img src={BreadBottom} alt="Bottom Bread" /></div>;

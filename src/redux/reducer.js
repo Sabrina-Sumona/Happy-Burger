@@ -7,7 +7,7 @@ const INGREDIENT_PRICES = {
     beef: 60,
     chicken: 50,
     ketchup: 10,
-    mayonnaise: 15,
+    mayo: 15,
 }
 
 const INITIAL_STATE = {
@@ -18,7 +18,7 @@ const INITIAL_STATE = {
         { type: 'beef', amount: 0 },
         { type: 'chicken', amount: 0 },
         { type: 'ketchup', amount: 0 },
-        { type: 'mayonnaise', amount: 0 },
+        { type: 'mayo', amount: 0 },
     ],
     orders: [],
     orderLoading: true,
@@ -73,7 +73,7 @@ export const reducer = (state = INITIAL_STATE, action) => {
                     { type: 'beef', amount: 0 },
                     { type: 'chicken', amount: 0 },
                     { type: 'ketchup', amount: 0 },
-                    { type: 'mayonnaise', amount: 0 },
+                    { type: 'mayo', amount: 0 },
                 ],
                 totalPrice: 80,
                 purchasable: false,
